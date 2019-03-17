@@ -1,0 +1,364 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="GateInDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="GateInTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="PlateNum" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DateTimeIn" Type="datetime" />
+          <Property Name="DateTimeOut" Type="datetime" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="ItemsToDeclareID" Type="int" Nullable="false" />
+          <Property Name="PurposeID" Type="int" Nullable="false" />
+          <Property Name="VehicletypesID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ItemstoDeclare">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Purpose">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Date Created" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Vehicletypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_GateInTable_ItemstoDeclare">
+          <End Role="ItemstoDeclare" Type="Self.ItemstoDeclare" Multiplicity="1" />
+          <End Role="GateInTable" Type="Self.GateInTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemstoDeclare">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GateInTable">
+              <PropertyRef Name="ItemsToDeclareID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GateInTable_Purpose">
+          <End Role="Purpose" Type="Self.Purpose" Multiplicity="1" />
+          <End Role="GateInTable" Type="Self.GateInTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Purpose">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GateInTable">
+              <PropertyRef Name="PurposeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GateInTable_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="GateInTable" Type="Self.GateInTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GateInTable">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GateInTable_Vehicletypes">
+          <End Role="Vehicletypes" Type="Self.Vehicletypes" Multiplicity="1" />
+          <End Role="GateInTable" Type="Self.GateInTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicletypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GateInTable">
+              <PropertyRef Name="VehicletypesID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GateInDatabaseModelStoreContainer">
+          <EntitySet Name="GateInTable" EntityType="Self.GateInTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemstoDeclare" EntityType="Self.ItemstoDeclare" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Purpose" EntityType="Self.Purpose" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vehicletypes" EntityType="Self.Vehicletypes" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_GateInTable_ItemstoDeclare" Association="Self.FK_GateInTable_ItemstoDeclare">
+            <End Role="ItemstoDeclare" EntitySet="ItemstoDeclare" />
+            <End Role="GateInTable" EntitySet="GateInTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GateInTable_Purpose" Association="Self.FK_GateInTable_Purpose">
+            <End Role="Purpose" EntitySet="Purpose" />
+            <End Role="GateInTable" EntitySet="GateInTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GateInTable_Users" Association="Self.FK_GateInTable_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="GateInTable" EntitySet="GateInTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GateInTable_Vehicletypes" Association="Self.FK_GateInTable_Vehicletypes">
+            <End Role="Vehicletypes" EntitySet="Vehicletypes" />
+            <End Role="GateInTable" EntitySet="GateInTable" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GateInDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ItemstoDeclare">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="GateInTables" Relationship="GateInDatabaseModel.FK_GateInTable_ItemstoDeclare" FromRole="ItemstoDeclare" ToRole="GateInTable" />
+        </EntityType>
+        <EntityType Name="Purpose">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="GateInTables" Relationship="GateInDatabaseModel.FK_GateInTable_Purpose" FromRole="Purpose" ToRole="GateInTable" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Date_Created" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="GateInTables" Relationship="GateInDatabaseModel.FK_GateInTable_Users" FromRole="User" ToRole="GateInTable" />
+        </EntityType>
+        <EntityType Name="Vehicletype">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="GateInTables" Relationship="GateInDatabaseModel.FK_GateInTable_Vehicletypes" FromRole="Vehicletype" ToRole="GateInTable" />
+        </EntityType>
+        <EntityContainer Name="GateInDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Genders" EntityType="Self.Gender" />
+          <EntitySet Name="ItemstoDeclares" EntityType="Self.ItemstoDeclare" />
+          <EntitySet Name="Purposes" EntityType="Self.Purpose" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="Vehicletypes" EntityType="Self.Vehicletype" />
+          <EntitySet Name="GateInTables" EntityType="GateInDatabaseModel.GateInTable" />
+          <AssociationSet Name="FK_GateInTable_ItemstoDeclare" Association="GateInDatabaseModel.FK_GateInTable_ItemstoDeclare">
+            <End Role="ItemstoDeclare" EntitySet="ItemstoDeclares" />
+            <End Role="GateInTable" EntitySet="GateInTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GateInTable_Purpose" Association="GateInDatabaseModel.FK_GateInTable_Purpose">
+            <End Role="Purpose" EntitySet="Purposes" />
+            <End Role="GateInTable" EntitySet="GateInTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GateInTable_Users" Association="GateInDatabaseModel.FK_GateInTable_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="GateInTable" EntitySet="GateInTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GateInTable_Vehicletypes" Association="GateInDatabaseModel.FK_GateInTable_Vehicletypes">
+            <End Role="Vehicletype" EntitySet="Vehicletypes" />
+            <End Role="GateInTable" EntitySet="GateInTables" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="GateInTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PlateNum" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateTimeIn" Type="DateTime" Precision="3" />
+          <Property Name="DateTimeOut" Type="DateTime" Precision="3" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="ItemsToDeclareID" Type="Int32" Nullable="false" />
+          <Property Name="PurposeID" Type="Int32" Nullable="false" />
+          <Property Name="VehicletypesID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ItemstoDeclare" Relationship="GateInDatabaseModel.FK_GateInTable_ItemstoDeclare" FromRole="GateInTable" ToRole="ItemstoDeclare" />
+          <NavigationProperty Name="Purpose" Relationship="GateInDatabaseModel.FK_GateInTable_Purpose" FromRole="GateInTable" ToRole="Purpose" />
+          <NavigationProperty Name="User" Relationship="GateInDatabaseModel.FK_GateInTable_Users" FromRole="GateInTable" ToRole="User" />
+          <NavigationProperty Name="Vehicletype" Relationship="GateInDatabaseModel.FK_GateInTable_Vehicletypes" FromRole="GateInTable" ToRole="Vehicletype" />
+        </EntityType>
+        <Association Name="FK_GateInTable_ItemstoDeclare">
+          <End Type="GateInDatabaseModel.ItemstoDeclare" Role="ItemstoDeclare" Multiplicity="1" />
+          <End Type="GateInDatabaseModel.GateInTable" Role="GateInTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemstoDeclare">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GateInTable">
+              <PropertyRef Name="ItemsToDeclareID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GateInTable_Purpose">
+          <End Type="GateInDatabaseModel.Purpose" Role="Purpose" Multiplicity="1" />
+          <End Type="GateInDatabaseModel.GateInTable" Role="GateInTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Purpose">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GateInTable">
+              <PropertyRef Name="PurposeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GateInTable_Users">
+          <End Type="GateInDatabaseModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="GateInDatabaseModel.GateInTable" Role="GateInTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GateInTable">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GateInTable_Vehicletypes">
+          <End Type="GateInDatabaseModel.Vehicletype" Role="Vehicletype" Multiplicity="1" />
+          <End Type="GateInDatabaseModel.GateInTable" Role="GateInTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicletype">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GateInTable">
+              <PropertyRef Name="VehicletypesID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GateInDatabaseModelStoreContainer" CdmEntityContainer="GateInDatabaseEntities">
+          <EntitySetMapping Name="Genders">
+            <EntityTypeMapping TypeName="GateInDatabaseModel.Gender">
+              <MappingFragment StoreEntitySet="Gender">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemstoDeclares">
+            <EntityTypeMapping TypeName="GateInDatabaseModel.ItemstoDeclare">
+              <MappingFragment StoreEntitySet="ItemstoDeclare">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Purposes">
+            <EntityTypeMapping TypeName="GateInDatabaseModel.Purpose">
+              <MappingFragment StoreEntitySet="Purpose">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="GateInDatabaseModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Date_Created" ColumnName="Date Created" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vehicletypes">
+            <EntityTypeMapping TypeName="GateInDatabaseModel.Vehicletype">
+              <MappingFragment StoreEntitySet="Vehicletypes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GateInTables">
+            <EntityTypeMapping TypeName="GateInDatabaseModel.GateInTable">
+              <MappingFragment StoreEntitySet="GateInTable">
+                <ScalarProperty Name="VehicletypesID" ColumnName="VehicletypesID" />
+                <ScalarProperty Name="PurposeID" ColumnName="PurposeID" />
+                <ScalarProperty Name="ItemsToDeclareID" ColumnName="ItemsToDeclareID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="DateTimeOut" ColumnName="DateTimeOut" />
+                <ScalarProperty Name="DateTimeIn" ColumnName="DateTimeIn" />
+                <ScalarProperty Name="PlateNum" ColumnName="PlateNum" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
